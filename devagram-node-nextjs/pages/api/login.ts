@@ -8,7 +8,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
   const{login,senha} = req.body;
      
     if(login === 'admin@admin.com' && senha === 'Admin@123'){
-            res.status(200).json({msg:'Usuario autenticado com sucesso!'});
+            res.status(200).json({msg:'Usuario  autenticado com sucesso!'});
     }
     return  res.status(405).json({erro:'Usuario e senha nao encontrado!'});
 
