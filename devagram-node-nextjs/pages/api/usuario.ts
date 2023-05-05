@@ -6,4 +6,4 @@ const usuarioEndPoint = (req: NextApiRequest, res : NextApiResponse) => {
 
 }
 
- export default validarTokenJWT(usuarioEndPoint);
+ export default validarTokenJWT( usuarioEndPoint);
