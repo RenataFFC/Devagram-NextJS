@@ -30,7 +30,8 @@ if(!MINHA_CHAVE_JWT){
            const token = jwt.sign({_id: usuarioEncontrado._id}, MINHA_CHAVE_JWT);
 
           return res.status(200).json({
-                nome : usuarioEncontrado.nome , email: usuarioEncontrado.email, token});
+                nome : usuarioEncontrado.nome ,
+                email: usuarioEncontrado.email, token});
         }
 return res.status(400).json({erro: 'Usuario ou senha nao encontrado'});
  }
