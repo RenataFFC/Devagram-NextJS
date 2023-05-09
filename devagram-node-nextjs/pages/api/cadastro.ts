@@ -13,7 +13,7 @@ import { connect } from "http2";
 const handler = nc()
     .use(upload.single('file'))
     .post(async (req : NextApiRequest, res : NextApiResponse<RespostaPadraoMsg>) => {
-        try{
+      try{ 
             const usuario = req.body as CadastroRequisicao;
 
             if(!usuario.nome || usuario.nome.length < 2 ){
@@ -46,11 +46,13 @@ const image = await uploadImagemCosmic(req);
             }
             await UsuarioModel.create(usuarioASerSalvo);
              return res.status(200).json({msg: 'Usuario criado com sucesso'});
- }catch(e: any){
+}catch(e: any){
    console.log(e);
      return res.status(400).json({erro: 'e.toString()'});
 
 }
+
+
 
 });
 
