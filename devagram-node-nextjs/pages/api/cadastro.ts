@@ -48,7 +48,7 @@ const image = await uploadImagemCosmic(req);
              return res.status(200).json({msg: 'Usuario criado com sucesso'});
 }catch(e: any){
    console.log(e);
-     return res.status(400).json({erro: 'e.toString()'});
+     return res.status(400).json({erro: e.toString()});
 
 }
 
