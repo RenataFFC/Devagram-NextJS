@@ -1,5 +1,6 @@
 import mongoose , {Schema} from "mongoose";
 
+
 const PublicacaoSchema= new Schema({
     idUsuario: {type: String, require: true},
     descricao:{type: String, require: true},
