@@ -7,7 +7,7 @@ import {UsuarioModel} from '../../models/UsuarioModel';
 
 
 
-const usuarioEndPoint = async (req: NextApiRequest, res : NextApiResponse<RespostaPadraoMsg | any>)=> {  
+const usuarioEndpoint = async (req: NextApiRequest, res : NextApiResponse<RespostaPadraoMsg | any>)=> {  
 try{
     const {userId} = req?.query;
     const usuario = await UsuarioModel.findById(userId);
@@ -20,4 +20,4 @@ try{
 
 }
 
- export default validarTokenJWT(conectarMongoDB(usuarioEndPoint));
+ export default validarTokenJWT(conectarMongoDB(usuarioEndpoint));
