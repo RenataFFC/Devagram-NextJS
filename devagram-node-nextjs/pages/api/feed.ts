@@ -8,23 +8,25 @@ import { PublicacaoModel } from '../../models/PublicacaoModel';
 const feedEndPoint = async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) => {
 
 
-try{
-  if(req.method === 'GET'){
-       //receber informacao do id do usuario que eu quero buscar o feed
-    if(req?.query?.id){
-       // agora tenho o id, como eu valido se o o usuario é valido e como busco as publicacoes
-        const usuario = await UsuarioModel.findById(req?.query?.id);
+try {
+                if(req.method === 'GET'){
+                    //receber informacao do id do usuario que eu quero buscar o feed
+              if(req?.query?.id){
 
-        if(!usuario){
-        return res.status(400).json({erro:'Usuario não encontrado'})
-        }
-        const publicacoes = await PublicacaoModel
-        .find({idUsuario : usuario._id})
-         .sort({data: -1});
+                    // agora tenho o id, como eu valido se o o usuario é valido e como busco as publicacoes
+                        const usuario = await UsuarioModel.findById(req?.query?.id);
 
-      return res.status(200).json(publicacoes);
-    }
-  }
+                        if(!usuario){
+                        return res.status(400).json({erro:'Usuario não encontrado'});
+                        }
+                        const publicacoes = await PublicacaoModel
+                        .find({idUsuario : usuario._id})
+                        .sort({data: -1});
+
+                    return res.status(200).json(publicacoes);
+
+                    }
+                }
 
 return res.status(400).json({erro:'Método informado não é válido'})  
 
