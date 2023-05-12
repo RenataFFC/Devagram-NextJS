@@ -5,8 +5,6 @@ import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
 import {UsuarioModel} from '../../models/UsuarioModel';
 
 
-
-
 const usuarioEndpoint = async (req: NextApiRequest, res : NextApiResponse<RespostaPadraoMsg | any>)=> {  
 try{
     const {userId} = req?.query;
