@@ -3,8 +3,8 @@ import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import {validarTokenJWT} from '../../middlewares/validarTokenJWT';
 import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
 import {UsuarioModel} from '../../models/UsuarioModel';
-import { upload,uploadImagemCosmic } from "../../SERVICES/uploadImagemCosmicjs";
-import nc from "next-connect";
+import { upload,uploadImagemCosmic } from '../../SERVICES/uploadImagemCosmicjs';
+import nc from 'next-connect';
 
 
 const handler = nc()
@@ -25,7 +25,7 @@ if(nome || nome.length <2) {
 const {file} = req;
 if(file && file.originalname) {
      const image = await uploadImagemCosmic(req);
-       if( file && image.media && image.media.url){
+       if(image && image.media && image.media.url){
               usuario.avatar = image.media.url;
         }
 }
