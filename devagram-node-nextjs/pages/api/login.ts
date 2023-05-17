@@ -4,9 +4,9 @@ import type { RespostaPadraoMsg } from '../../types/RespostaPadraoMsg';
 import type { LoginResposta } from '../../types/LoginResposta';
 import md5 from  'md5';
 import {UsuarioModel} from '../../models/UsuarioModel';
-import { Await } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
- // eslint-disable-next-line import/no-anonymous-default-export
+import { validarTokenJWT } from '@/middlewares/validarTokenJWT';
+
 
 
 const endpointLogin = async(
@@ -40,6 +40,6 @@ return res.status(405).json({erro: 'Metodo informado nao é valido'});
 
 
 
-export default conectarMongoDB(endpointLogin);
+export default  validarTokenJWT(conectarMongoDB(endpointLogin));
 
 
