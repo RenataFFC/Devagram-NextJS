@@ -8,6 +8,7 @@ import {PublicacaoModel} from '../../models/PublicacaoModel';
 import {UsuarioModel} from '../../models/UsuarioModel';
 import moment from "moment";
 
+
 const handler = nc()
     .use(upload.single('file'))
     .post(async (req : any, res : NextApiResponse<RespostaPadraoMsg>) => {
@@ -43,22 +44,24 @@ const handler = nc()
      foto: image.media.url,
       data: new Date       
      }
-    
+     usuario.publicacoes++;
+     await UsuarioModel.findByIdAndUpdate({_id : usuario._id}, usuario);
 
-await PublicacaoModel.create(publicacao);
-return res.status(200).json({msg: 'Publicacao criada com sucesso'});
 
-}catch(e){
- console.log(e);
-return res.status(400).json({erro: 'Erro ao cadastrar publicacao'});
-}      
+      await PublicacaoModel.create(publicacao);
+      return res.status(200).json({msg: 'Publicacao criada com sucesso'});
 
-     });
+      }catch(e){
+      console.log(e);
+      return res.status(400).json({erro: 'Erro ao cadastrar publicacao'});
+      }      
 
-export const config = {
-api:{
-   bodyParser:false
-}
-}
+         });
 
-export default validarTokenJWT(conectarMongoDB(handler));
+      export const config = {
+      api:{
+         bodyParser:false
+      }
+      }
+
+      export default validarTokenJWT(conectarMongoDB(handler));
