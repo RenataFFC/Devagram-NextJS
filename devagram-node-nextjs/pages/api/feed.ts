@@ -10,7 +10,7 @@ const feedEndPoint = async ( req: NextApiRequest, res: NextApiResponse<RespostaP
 try{
    if(req.method === 'GET'){        
          if(req?.query?.id){
-console.log('cheguei aqui')
+
             const usuario = await UsuarioModel.findById(req?.query?.id);
              if(!usuario){
                  return res.status(400).json({erro:'Usuario não encontrado'});
@@ -23,11 +23,9 @@ console.log('cheguei aqui')
         }else{
           const {userId} = req.query;
           const usuarioLogado = await UsuarioModel.findById(userId);
-          if(!usuarioLogado){
+          if(usuarioLogado){
             return res.status(400).json({erro:'Usuario nao encontrado'});
-             console.log('publicacoes');
-
-          }
+            }
           const seguidores = await SeguidorModel.find({usuarioId: usuarioLogado._id});
           const seguidoresIds = seguidores.map(s=>s.usuarioSeguidoId);
 
@@ -38,12 +36,23 @@ console.log('cheguei aqui')
             ]
           })
           .sort({data: -1});
-       return res.status(200).json(publicacoes);
-       console.log(publicacoes);
-         } 
+
+const result =[];
+for(const publicacao of publicacoes){
+const usuarioDaPublicacao = await UsuarioModel.findById(publicacao.idUsuario);
+if(usuarioDaPublicacao){
+  const final = {...publicacao._doc,usuario:{
+    nome: usuarioDaPublicacao.nome,
+    avatar: usuarioDaPublicacao.avatar
+  }};
+
+ result.push(final);
+}
+}       return res.status(200).json(result);
+       } 
       }
       
-      console.log('publicacoes');
+      
       return res.status(405).json({erro:'Método informado não é válido'}) ; 
     }catch(e){
       console.log(e);
