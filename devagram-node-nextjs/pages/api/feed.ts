@@ -23,7 +23,7 @@ try{
         }else{
           const {userId} = req.query;
           const usuarioLogado = await UsuarioModel.findById(userId);
-          if(usuarioLogado){
+          if(!usuarioLogado){
             return res.status(400).json({erro:'Usuario nao encontrado'});
             }
           const seguidores = await SeguidorModel.find({usuarioId: usuarioLogado._id});
@@ -49,8 +49,7 @@ if(usuarioDaPublicacao){
  result.push(final);
 }
 }       return res.status(200).json(result);
-       } 
-      }
+       }       }
       
       
       return res.status(405).json({erro:'Método informado não é válido'}) ; 
