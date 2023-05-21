@@ -6,24 +6,34 @@ import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
 import{validarTokenJWT} from '../../middlewares/validarTokenJWT';
 import {PublicacaoModel} from '../../models/PublicacaoModel';
 import {UsuarioModel} from '../../models/UsuarioModel';
-import moment from "moment";
-import { visitFunctionBody } from "typescript";
-import usuario from "./usuario";
+
 
 const comentarioEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
     try {
      
        if(req.method === 'PUT'){
         const{userId, id} = req.query;
-        const usurioLogado = await UsuarioModel.findById(userId);
+        const usuarioLogado = await UsuarioModel.findById(userId);
         if(!usuarioLogado){
-          return res.status(400).json({erro:'Usuario não encontrado'})
+          return res.status(400).json({erro:'Usuario não encontrado'});
         }
-
-        const(!req.body || req.body.comentario || req.body.comentario.length <2){
+        const publicacao = await PublicacaoModel.findById(id);
+        if(!publicacao){
+          return res.status(400).json({erro:'Publicacao nao encontrada'});
+        }
+        if(!req.body || !req.body.comentario || req.body.comentario.length <2){
           return res.status(400).json({erro:'Comentario nao é valido'});
         }
 
+        const comentario = {
+          usuarioId: usuarioLogado._id,
+           nome: usuarioLogado.nome,
+           comentario: req.body.comentario
+        }
+        publicacao.comentario.push(comentario);
+        await PublicacaoModel.findByIdAndUpdate({_id : publicacao._id}, publicacao);
+        return res.status(200).json({msg : 'Comentario adicionado com sucesso'});
+        
        }
        return res.status(405).json({erro:'Metodo informado não é valido'})
 
