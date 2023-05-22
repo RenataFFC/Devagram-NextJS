@@ -7,6 +7,7 @@ import{validarTokenJWT} from '../../middlewares/validarTokenJWT';
 import {PublicacaoModel} from '../../models/PublicacaoModel';
 import {UsuarioModel} from '../../models/UsuarioModel';
 import moment from "moment";
+import { politicaCORS } from './../../middlewares/politicaCORS';
 
 
 const handler = nc()
@@ -64,4 +65,4 @@ const handler = nc()
       }
       }
 
-      export default validarTokenJWT(conectarMongoDB(handler));
+      export default politicaCORS(validarTokenJWT(conectarMongoDB(handler)));

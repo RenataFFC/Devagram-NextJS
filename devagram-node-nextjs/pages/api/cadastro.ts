@@ -8,6 +8,7 @@ import { upload,uploadImagemCosmic } from "../../SERVICES/uploadImagemCosmicjs";
 import nc from "next-connect";
 import next from "next/types";
 import { connect } from "http2";
+import { politicaCORS } from "@/middlewares/politicaCORS";
 
 
 const handler = nc()
@@ -63,4 +64,4 @@ bodyParser: false
 }
 
 
-export default conectarMongoDB(handler);
+export default politicaCORS(conectarMongoDB(handler)));

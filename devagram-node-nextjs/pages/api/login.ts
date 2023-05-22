@@ -6,6 +6,7 @@ import md5 from  'md5';
 import {UsuarioModel} from '../../models/UsuarioModel';
 import jwt from 'jsonwebtoken';
 import { validarTokenJWT } from '@/middlewares/validarTokenJWT';
+import { politicaCORS } from '@/middlewares/politicaCORS';
 
 
 
@@ -40,6 +41,6 @@ return res.status(405).json({erro: 'Metodo informado nao é valido'});
 
 
 
-export default  validarTokenJWT(conectarMongoDB(endpointLogin));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(endpointLogin)));
 
 
