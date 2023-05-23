@@ -36,8 +36,4 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/md5": "^2.3.2",
     "@types/multer": "^1.4.7"
-  },
-  "engines": {
-    "node": "18.X"
   }
-}
