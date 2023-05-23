@@ -64,4 +64,4 @@ bodyParser: false
 }
 
 
-export default politicaCORS(conectarMongoDB(handler)));
+export default politicaCORS(conectarMongoDB(handler));
