@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "18.15.12",
-    "@types/react": "18.0.37",
+    "@types/node": "20.2.3",
+    "@types/react": "18.2.6",
     "@types/react-dom": "18.0.11",
     "autoprefixer": "10.4.14",
     "cosmicjs": "^4.3.7",
