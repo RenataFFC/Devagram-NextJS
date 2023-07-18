@@ -41,6 +41,6 @@ return res.status(405).json({erro: 'Metodo informado nao é valido'});
 
 
 
-export default politicaCORS((conectarMongoDB(endpointLogin)));
+export default politicaCORS(conectarMongoDB(endpointLogin));
 
 
