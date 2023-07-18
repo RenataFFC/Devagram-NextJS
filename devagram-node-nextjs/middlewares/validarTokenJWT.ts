@@ -20,14 +20,13 @@ export const validarTokenJWT = (handler : NextApiHandler) =>
           if(!authorization){
                return res.status(401).json ({erro: 'Não foi possivel validar o token de acesso'});
 }
-               
-            const token = authorization.substring(7);
+          const token = authorization.substring(7);
             if(!token){
               return res.status(401).json ({erro: 'Não foi possivel validar o token de acesso'});
             }
 
             const decoded = jwt.verify(token, MINHA_CHAVE_JWT) as JwtPayload;
-            if(! decoded){
+            if(!decoded){
                  return res.status(401).json ({erro: 'Não foi possivel validar o token de acesso'});
 }
             if(!req.query){
