@@ -13,7 +13,7 @@ try {
 
     const usuarioEncontrado = await UsuarioModel.findById(req?.query?.id);
     if(!usuarioEncontrado){
-       return res.status(400).json({erro: 'Usuario nao encotrado'})
+       return res.status(400).json({erro: 'Usuario nao encontrado'})
     }
 usuarioEncontrado.senha=null;
  return res.status(200).json(usuarioEncontrado);
@@ -29,12 +29,14 @@ usuarioEncontrado.senha=null;
     { email : {$regex : filtro, $options: 'i'}}
     ]
 });
+usuariosEncontrados.forEach(userFound => {
+    userFound.senha = null
+});
   return  res.status(200).json(usuariosEncontrados);
 }
-    return res.status(405).json({erro: 'Metodo informado não é valido'})
-
-
+    
 }
+return res.status(405).json({erro: 'Metodo informado não é valido'});
      
 } catch(e) {
     console.log(e);
@@ -42,4 +44,4 @@ usuarioEncontrado.senha=null;
 }
 }
 
-export default politicaCORS( validarTokenJWT(conectarMongoDB(pesquisaEndpoint)));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(pesquisaEndpoint)));
