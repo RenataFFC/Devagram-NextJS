@@ -5,7 +5,8 @@ import { validarTokenJWT } from '../../middlewares/validarTokenJWT';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { politicaCORS } from '@/middlewares/politicaCORS';
 
-const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>)=>{
+const pesquisaEndpoint 
+= async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>)=>{
 
 try {
     if(req.method === 'GET'){
@@ -21,13 +22,13 @@ usuarioEncontrado.senha=null;
 
 }else{
    const {filtro} = req.query;
-    if(filtro && filtro.length <2){
+    if(!filtro || filtro.length <2){
         return res.status(400).json({erro: 'Favor informar pelo menos 2 caracter para a busca'})
    }
     const usuariosEncontrados = await UsuarioModel.find({
-    $or: [{ nome: { $regex: filtro, $options: 'i' } },
-    { email : {$regex : filtro, $options: 'i'}}
-    ]
+    $or: [{ nome: {$regex: filtro, $options: 'i' }},
+   // { email : {$regex : filtro, $options: 'i'}}
+ ]
 });
 usuariosEncontrados.forEach(userFound => {
     userFound.senha = null
@@ -37,6 +38,7 @@ usuariosEncontrados.forEach(userFound => {
     
 }
 return res.status(405).json({erro: 'Metodo informado não é valido'});
+
      
 } catch(e) {
     console.log(e);
