@@ -22,12 +22,13 @@ usuarioEncontrado.senha=null;
 
 }else{
    const {filtro} = req.query;
-    if(!filtro || filtro.length <2){
+    if(!filtro ||
+         filtro.length <2){
         return res.status(400).json({erro: 'Favor informar pelo menos 2 caracter para a busca'})
    }
     const usuariosEncontrados = await UsuarioModel.find({
     $or: [{ nome: {$regex: filtro, $options: 'i' }},
-   // { email : {$regex : filtro, $options: 'i'}}
+       { email: {$regex : filtro, $options: 'i'}}
  ]
 });
 usuariosEncontrados.forEach(userFound => {
