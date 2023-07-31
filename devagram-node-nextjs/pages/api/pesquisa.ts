@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse} from 'next';
 import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import { conectarMongoDB } from '../../middlewares/conectarMongoDB';
 import { validarTokenJWT } from '../../middlewares/validarTokenJWT';
+import { SeguidorModel } from '../../models/SeguidorModels';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { politicaCORS } from '@/middlewares/politicaCORS';
 
