@@ -13,23 +13,25 @@ async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
     if(req.method === 'PUT'){
     const{userId, id} = req?.query;
 
-
+   // usuario logado/autenticado = quem esta fazendo as acoes
     const usuarioLogado = await  UsuarioModel.findById(userId);
     if(!usuarioLogado){
       return res.status(400).json({erro: 'Usuario logado não encontrado'});
     }
 
-
+   // id do usuario e ser seguidor - query
    const usuarioASerSeguido = await  UsuarioModel.findById(id);
    if(!usuarioASerSeguido){
    return res.status(400).json({erro: 'Usuario a ser seguido  não encontrado'});
    }
 
-
- const euJaSigoEsseUsuario = await  SeguidorModel.find({usuarioId: usuarioLogado._id, usuarioSeguidoId: usuarioASerSeguido._id});
+ // buscar se EU LOGADO sigo ou nao esse usuario
+ const euJaSigoEsseUsuario = 
+    await  SeguidorModel.find({usuarioId: usuarioLogado._id, usuarioSeguidoId: usuarioASerSeguido._id});
    if(euJaSigoEsseUsuario && euJaSigoEsseUsuario.length >0){
-
-   euJaSigoEsseUsuario.forEach(async(e: any) =>  await SeguidorModel.findByIdAndDelete({_id: e._id}));
+   // sinal que eu ja sigo esse usuario
+   euJaSigoEsseUsuario.forEach(async(e: any) => 
+    await SeguidorModel.findByIdAndDelete({_id: e._id}));
    
  usuarioLogado.seguindo--;
  await UsuarioModel.findByIdAndUpdate({_id: usuarioLogado._id}, usuarioLogado);
@@ -40,12 +42,13 @@ async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
 
 
 }else{
+   // sinal q eu nao sigo esse usuario
   const seguidor={
     usuarioId: usuarioLogado._id,
     usuarioSeguidoId: usuarioASerSeguido._id
   }; 
     await SeguidorModel.create(seguidor);
-
+     // adicionar um seguindo no usuario logado
     usuarioLogado.seguindo++;
     await UsuarioModel.findByIdAndUpdate({_id: usuarioLogado._id}, usuarioLogado);
 

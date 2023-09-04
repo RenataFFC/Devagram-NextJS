@@ -7,8 +7,7 @@ import { UsuarioModel } from '../../models/UsuarioModel';
 import { politicaCORS } from '@/middlewares/politicaCORS';
 
 const pesquisaEndpoint 
-= async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>)=>{
-
+= async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>) => {
 try {
     if(req.method === 'GET'){
        if(req?.query?.id){
