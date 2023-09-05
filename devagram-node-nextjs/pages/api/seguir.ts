@@ -16,13 +16,13 @@ async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
    // usuario logado/autenticado = quem esta fazendo as acoes
     const usuarioLogado = await  UsuarioModel.findById(userId);
     if(!usuarioLogado){
-      return res.status(400).json({erro: 'Usuario logado não encontrado'});
+      return res.status(400).json({erro: 'Usuário logado não encontrado'});
     }
 
    // id do usuario e ser seguidor - query
    const usuarioASerSeguido = await  UsuarioModel.findById(id);
    if(!usuarioASerSeguido){
-   return res.status(400).json({erro: 'Usuario a ser seguido  não encontrado'});
+   return res.status(400).json({erro: 'Usuário a ser seguido  não encontrado'});
    }
 
  // buscar se EU LOGADO sigo ou nao esse usuario
