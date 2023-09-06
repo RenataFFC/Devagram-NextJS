@@ -2,12 +2,12 @@ import mongoose , {Schema} from "mongoose";
 
 
 const PublicacaoSchema= new Schema({
-    idUsuario: {type: String, required: true},
-    descricao:{type: String, required: true},
-    foto:{type:String, required: true},
-    data: {type: Date, required:true},
-    comentario:{type: Array, required:true, default:[]},
-    likes:{type: Array, required: true, default:[]},
+    idUsuario: {type: String, require: true},
+    descricao:{type: String, require: true},
+    foto:{type:String, require: true},
+    data: {type: Date, require:true},
+    comentario:{type: Array, require:true, default:[]},
+    likes:{type: Array, require: true, default:[]},
 
 });
 
