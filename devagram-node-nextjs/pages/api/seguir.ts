@@ -2,6 +2,7 @@ import type { NextApiRequest , NextApiResponse} from 'next';
 import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import {validarTokenJWT} from '../../middlewares/validarTokenJWT';
 import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
+import { politicaCORS } from '../../middlewares/politicaCORS';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import { SeguidorModel } from '../../models/SeguidorModels';
 
@@ -26,12 +27,11 @@ async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
    }
 
  // buscar se EU LOGADO sigo ou nao esse usuario
- const euJaSigoEsseUsuario = 
-    await  SeguidorModel.find({usuarioId: usuarioLogado._id, usuarioSeguidoId: usuarioASerSeguido._id});
+ const euJaSigoEsseUsuario =  await  SeguidorModel.find({usuarioId: usuarioLogado._id, usuarioSeguidoId: usuarioASerSeguido._id});
    if(euJaSigoEsseUsuario && euJaSigoEsseUsuario.length >0){
+
    // sinal que eu ja sigo esse usuario
-   euJaSigoEsseUsuario.forEach(async(e: any) => 
-    await SeguidorModel.findByIdAndDelete({_id: e._id}));
+   euJaSigoEsseUsuario.forEach(async(e: any) => await SeguidorModel.findByIdAndDelete({_id: e._id}));
    
  usuarioLogado.seguindo--;
  await UsuarioModel.findByIdAndUpdate({_id: usuarioLogado._id}, usuarioLogado);
@@ -69,4 +69,4 @@ async ( req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>)=>{
  }
 }
 
-export default validarTokenJWT(conectarMongoDB(endpointSeguir));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(endpointSeguir))); 
